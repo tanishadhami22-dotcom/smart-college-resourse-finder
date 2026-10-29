@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Resources Finder</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fc;
+            color: #24344d;
+        }
+
+        /* Header */
+        header {
+            background: #173b67;
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        header h2 {
+            font-size: 23px;
+        }
+
+        header h2 span {
+            color: #a9d3ff;
+        }
+
+        header p {
+            font-size: 13px;
+            margin-top: 5px;
+            color: #dbe8f7;
+        }
+
+        /* Welcome section */
+        .hero {
+            text-align: center;
+            padding: 55px 20px 35px;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            color: #173b67;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: #66758a;
+            margin-bottom: 25px;
+        }
+
+        /* Search bar */
+        .search-box {
+            max-width: 550px;
+            margin: auto;
+            display: flex;
+            background: white;
+            border: 1px solid #dce4ef;
+            border-radius: 10px;
+            padding: 6px;
+            box-shadow: 0 5px 18px #173b6710;
+        }
+
+        .search-box input {
+            flex: 1;
+            min-width: 0;
+            border: none;
+            outline: none;
+            padding: 12px;
+            font-size: 15px;
+        }
+
+        .search-box button {
+            background: #2878d0;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            padding: 12px 20px;
+            cursor: pointer;
+        }
+
+        .search-box button:hover {
+            background: #195fae;
+        }
+
+        /* Main content */
+        main {
+            max-width: 1050px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .section-heading h2 {
+            font-size: 23px;
+        }
+
+        #result-count {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Category buttons */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .filter-btn {
+            border: 1px solid #d8e2ef;
+            background: white;
+            padding: 10px 16px;
+            border-radius: 22px;
+            cursor: pointer;
+            color: #40536d;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #2878d0;
+            color: white;
+            border-color: #2878d0;
+        }
+
+        /* Resource cards */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 23px;
+            border: 1px solid #e4eaf2;
+            border-radius: 13px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 22px #173b6715;
+        }
+
+        .resource-icon {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .resource-card h3 {
+            margin-bottom: 9px;
+            color: #173b67;
+        }
+
+        .category {
+            display: inline-block;
+            font-size: 12px;
+            background: #eaf2ff;
+            color: #2870bb;
+            padding: 5px 9px;
+            border-radius: 5px;
+            margin-bottom: 13px;
+        }
+
+        .location {
+            color: #68788e;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .empty-message {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #68788e;
+            padding: 35px 10px;
+            background: white;
+            border-radius: 12px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: #718096;
+            padding: 30px 15px;
+            margin-top: 35px;
+            font-size: 13px;
+        }
+
+        /* Mobile-friendly design */
+        @media (max-width: 750px) {
+            .resource-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 18px 6%;
+            }
+
+            .hero {
+                padding-top: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div>
+            <h2>🎓 Smart <span>Resources Finder</span></h2>
+            <p>Find your college resources easily</p>
+        </div>
+
+        <div>Explore your campus →</div>
+    </header>
+
+    <!-- Welcome and search section -->
+    <section class="hero">
+        <h1>Find Your Campus Resources</h1>
+
+        <p>Everything you need on campus, in one place.</p>
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search library, lab, classroom..."
+                aria-label="Search college resources"
+            >
+
+            <button onclick="searchResources()">Search</button>
+        </div>
+    </section>
+
+    <!-- Resources section -->
+    <main>
+        <div class="section-heading">
+            <h2>Explore Resources</h2>
+            <span id="result-count"></span>
+        </div>
+
+        <!-- Category filters -->
+        <div class="filters">
+            <button class="filter-btn active"
+                onclick="filterResources('All', this)">All</button>
+
+            <button class="filter-btn"
+                onclick="filterResources('Library', this)">📚 Library</button>
+
+            <button class="filter-btn"
+                onclick="filterResources('Laboratory', this)">💻 Labs</button>
+
+            <button class="filter-btn"
+                onclick="filterResources('Classroom', this)">🏫 Classrooms</button>
+
+            <button class="filter-btn"
+                onclick="filterResources('Office', this)">🏢 Offices</button>
+        </div>
+
+        <!-- Cards appear here -->
+        <div class="resource-grid" id="resourceGrid"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        Smart Resources Finder | Made for students 💙
+    </footer>
+
+    <script>
+    let selectedCategory = "All";
+
+    // Display resources received from the backend
+    function displayResources(list) {
+        const grid = document.getElementById("resourceGrid");
+        const count = document.getElementById("result-count");
+
+        count.textContent = list.length + " resources found";
+
+        if (list.length === 0) {
+            grid.innerHTML =
+                '<p class="empty-message">No resources found. Try another search.</p>';
+            return;
+        }
+
+        const icons = {
+            Library: "📚",
+            Laboratory: "💻",
+            Classroom: "🏫",
+            Office: "🏢"
+        };
+
+        grid.innerHTML = list.map(resource => `
+            <div class="resource-card">
+                <div class="resource-icon">
+                    ${icons[resource.category] || "📍"}
+                </div>
+
+                <h3>${resource.name}</h3>
+
+                <span class="category">
+                    ${resource.category}
+                </span>
+
+                <p class="location">
+                    📍 ${resource.location}
+                </p>
+            </div>
+        `).join("");
+    }
+
+    // Fetch resources from the Flask backend
+    async function searchResources() {
+        const searchInput = document.getElementById("searchInput");
+        const grid = document.getElementById("resourceGrid");
+        const count = document.getElementById("result-count");
+
+        const query = searchInput.value.trim();
+
+        const params = new URLSearchParams();
+        params.set("q", query);
+        params.set("category", selectedCategory);
+
+        try {
+            grid.innerHTML =
+                '<p class="empty-message">Loading resources...</p>';
+
+            const response = await fetch(
+                "http://127.0.0.1:5000/api/resources?" +
+                params.toString()
+            );
+
+            if (!response.ok) {
+                throw new Error("Backend request failed");
+            }
+
+            const data = await response.json();
+
+            // Check that the backend returned a resource list
+            if (!Array.isArray(data)) {
+                throw new Error("Invalid resource data received");
+            }
+
+            displayResources(data);
+
+        } catch (error) {
+            grid.innerHTML =
+                '<p class="empty-message">Unable to load resources. Please check that the backend is running.</p>';
+
+            count.textContent = "";
+
+            console.error("Error loading resources:", error);
+        }
+    }
+
+    // Filter resources by category
+    function filterResources(category, button) {
+        selectedCategory = category;
+
+        document.querySelectorAll(".filter-btn").forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        searchResources();
+    }
+
+    // Search automatically while typing
+    document.getElementById("searchInput")
+        .addEventListener("input", searchResources);
+
+    // Load resources when the page opens
+    searchResources();
+</script>
+        
+
+</body>
+</html>

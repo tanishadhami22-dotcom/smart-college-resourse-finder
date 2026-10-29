@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "name": "Central Library",
+        "category": "Library",
+        "location": "Main Building, Floor 1"
+    },
+    {
+        "id": 2,
+        "name": "Computer Lab",
+        "category": "Laboratory",
+        "location": "Block A, Room 204"
+    },
+    {
+        "id": 3,
+        "name": "Physics Lab",
+        "category": "Laboratory",
+        "location": "Block B, Room 105"
+    },
+    {
+        "id": 4,
+        "name": "Lecture Hall 1",
+        "category": "Classroom",
+        "location": "Academic Block, Floor 2"
+    },
+    {
+        "id": 5,
+        "name": "Administrative Office",
+        "category": "Office",
+        "location": "Main Building, Ground Floor"
+    },
+    {
+        "id": 6,
+        "name": "Seminar Room",
+        "category": "Classroom",
+        "location": "Block C, Room 301"
+    }
+]
